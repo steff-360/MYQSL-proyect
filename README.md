@@ -1,145 +1,113 @@
--- ============================================================
--- Gaseosas del Valle S.A.
--- Script: views_and_queries.sql
--- Descripción: Vistas (CREATE VIEW) y consultas analíticas
--- Requiere haber ejecutado database.sql, functions.sql y
--- triggers.sql primero
--- ============================================================
+# Base de Datos - Distribuidora de Gaseosas del Valle S.A.
 
-USE gaseosas_del_valle;
+## Introducción
 
--- ============================================================
--- VISTAS
--- ============================================================
+Este proyecto contiene la implementación de una base de datos en
+MySQL para gestionar las operaciones de una empresa distribuidora de
+bebidas. El diseño abarca desde la gestión de inventario y ventas
+hasta la automatización de procesos de negocio mediante funciones,
+triggers y eventos.
 
--- ------------------------------------------------------------
--- vista_resumen_pedidos_por_sede
--- Cantidad total de pedidos y ventas (con IVA) por sede
--- ------------------------------------------------------------
-DROP VIEW IF EXISTS vista_resumen_pedidos_por_sede;
+Está construido y comentado pensando en alguien que **apenas está
+aprendiendo bases de datos**: cada archivo explica, en comentarios,
+qué hace cada bloque y por qué.
 
-CREATE VIEW vista_resumen_pedidos_por_sede AS
-SELECT
-    s.id_sede,
-    s.nombre_sede,
-    s.ubicacion,
-    COUNT(p.id_pedido)          AS total_pedidos,
-    IFNULL(SUM(p.total_con_iva), 0) AS ventas_totales_con_iva
-FROM sedes s
-LEFT JOIN pedidos p ON p.id_sede = s.id_sede
-GROUP BY s.id_sede, s.nombre_sede, s.ubicacion;
+## Estructura del proyecto
 
--- ------------------------------------------------------------
--- vista_productos_bajo_stock
--- Productos con stock_actual <= stock_minimo
--- ------------------------------------------------------------
-DROP VIEW IF EXISTS vista_productos_bajo_stock;
+```
+├── database/
+│   ├── ddl/
+│   │   └── schema.sql              # (DDL) Estructura de tablas y relaciones
+│   ├── dml/
+│   │   └── data.sql                # (DML) Inserción de datos de prueba
+│   └── dql/
+│       └── views_and_queries.sql   # (DQL) Vistas y consultas
+├── docs/
+│   ├── requirements.md             # Documentación de requerimientos
+│   ├── normalizacion.md            # Justificación de 1FN, 2FN y 3FN
+│   └── erd.svg                     # Diagrama Entidad-Relación (ábrelo en el navegador)
+├── evidences/
+│   └── evidencias.md               # Resultados reales ya calculados de cada prueba
+├── events/
+│   └── events.sql                  # Evento programado (revisión de stock)
+├── functions/
+│   └── functions.sql               # Funciones almacenadas
+├── indexes/
+│   └── indexes.sql                 # Creación de índices
+├── transactions/
+│   └── transactions.sql            # Procedimiento transaccional (compra)
+├── triggers/
+│   └── triggers.sql                # Triggers de stock y auditoría
+├── users/
+│   └── users.sql                   # Usuarios de MySQL y sus permisos
+├── results.md                      # Cómo probar cada componente (pasos)
+└── README.md                       # Este archivo
+```
 
-CREATE VIEW vista_productos_bajo_stock AS
-SELECT
-    id_producto,
-    nombre,
-    categoria,
-    stock_actual,
-    stock_minimo,
-    (stock_minimo - stock_actual) AS unidades_faltantes
-FROM productos
-WHERE stock_actual <= stock_minimo;
+## Orden de ejecución recomendado
 
--- ------------------------------------------------------------
--- vista_clientes_activos
--- Clientes con al menos un pedido registrado
--- ------------------------------------------------------------
-DROP VIEW IF EXISTS vista_clientes_activos;
+1. `database/ddl/schema.sql` — crea la base de datos y las tablas
+2. `database/dml/data.sql` — llena las tablas con datos de ejemplo
+3. `functions/functions.sql` — crea las funciones
+4. `triggers/triggers.sql` — crea los triggers
+5. `transactions/transactions.sql` — crea el procedimiento `sp_comprar`
+6. `events/events.sql` — crea el evento programado
+7. `database/dql/views_and_queries.sql` — crea las vistas
+8. `indexes/indexes.sql` — crea los índices
+9. `users/users.sql` — crea usuarios de MySQL con permisos (opcional)
 
-CREATE VIEW vista_clientes_activos AS
-SELECT
-    c.id_cliente,
-    c.nombre_completo,
-    c.identificacion,
-    c.telefono,
-    COUNT(p.id_pedido) AS total_pedidos,
-    IFNULL(SUM(p.total_con_iva), 0) AS total_comprado
-FROM clientes c
-INNER JOIN pedidos p ON p.id_cliente = c.id_cliente
-GROUP BY c.id_cliente, c.nombre_completo, c.identificacion, c.telefono;
+## Componentes implementados
 
--- ============================================================
--- CONSULTAS SQL REQUERIDAS
--- ============================================================
+### Funciones
+- **`fn_calcular_total_con_iva`**: calcula el total de un pedido
+  incluyendo el 12% de IVA.
+- **`fn_validar_stock`**: verifica si hay suficiente stock de un
+  producto antes de una venta.
 
--- 1) Productos con stock por debajo del mínimo
-SELECT id_producto, nombre, categoria, stock_actual, stock_minimo
-FROM productos
-WHERE stock_actual <= stock_minimo;
+### Triggers
+- **`tr_after_actualizar_stock`**: descuenta el stock de un producto
+  automáticamente después de agregarlo a una venta.
+- **`tr_after_auditar_cambio_precio`**: registra cualquier
+  modificación en el precio de un producto en una tabla de auditoría.
 
--- 2) Pedidos realizados entre dos fechas (BETWEEN)
-SELECT id_pedido, fecha_pedido, id_cliente, id_sede, total_con_iva
-FROM pedidos
-WHERE fecha_pedido BETWEEN '2026-06-01' AND '2026-06-30';
+### Transacciones (procedimientos almacenados)
+- **`sp_comprar`**: encapsula todo el proceso de compra (validar
+  stock, crear pedido, insertar detalle, actualizar total) en una
+  transacción atómica, con `ROLLBACK` automático si algo falla.
 
--- 3) Productos más vendidos (JOIN + GROUP BY)
-SELECT
-    pr.id_producto,
-    pr.nombre,
-    SUM(dp.cantidad) AS unidades_vendidas
-FROM detalle_pedido dp
-JOIN productos pr ON pr.id_producto = dp.id_producto
-GROUP BY pr.id_producto, pr.nombre
-ORDER BY unidades_vendidas DESC;
+### Vistas
+- **`vista_resumen_pedidos_por_sede`**: resumen de ventas y pedidos
+  por cada sede.
+- **`vista_productos_bajo_stock`**: productos que necesitan
+  reabastecimiento urgente.
+- **`vista_clientes_activos`**: segmentación de clientes según su
+  historial de compras.
 
--- 4) Clientes y cantidad de pedidos realizados
-SELECT
-    c.id_cliente,
-    c.nombre_completo,
-    COUNT(p.id_pedido) AS cantidad_pedidos
-FROM clientes c
-LEFT JOIN pedidos p ON p.id_cliente = c.id_cliente
-GROUP BY c.id_cliente, c.nombre_completo
-ORDER BY cantidad_pedidos DESC;
+### Eventos
+- **`evento_revisar_stock`**: tarea programada diaria que registra
+  productos con bajo inventario en `log_stock_bajo`.
 
--- 5) Buscar clientes por nombre parcial (LIKE)
-SELECT id_cliente, nombre_completo, identificacion, telefono
-FROM clientes
-WHERE nombre_completo LIKE '%Super%';
+### Índices
+10 índices sobre las columnas más consultadas (búsquedas por nombre,
+filtros por sede/cliente/estado, y llaves foráneas usadas en JOINs).
 
--- 6) Productos de ciertas categorías (IN)
-SELECT id_producto, nombre, categoria, precio
-FROM productos
-WHERE categoria IN ('Gaseosa Cola', 'Mixers');
+### Usuarios
+4 roles de MySQL con permisos distintos: `admin_valle`,
+`vendedor_valle`, `bodeguero_valle` y `reportes_valle` (solo lectura).
 
--- 7) Cliente con mayor número de pedidos (subconsulta)
-SELECT c.id_cliente, c.nombre_completo, conteo.cantidad_pedidos
-FROM clientes c
-JOIN (
-    SELECT id_cliente, COUNT(*) AS cantidad_pedidos
-    FROM pedidos
-    GROUP BY id_cliente
-) AS conteo ON conteo.id_cliente = c.id_cliente
-WHERE conteo.cantidad_pedidos = (
-    SELECT MAX(cantidad_pedidos)
-    FROM (
-        SELECT COUNT(*) AS cantidad_pedidos
-        FROM pedidos
-        GROUP BY id_cliente
-    ) AS sub
-);
+## Diagrama y normalización
 
--- 8) Pedidos y totales agrupados por sede
-SELECT
-    s.id_sede,
-    s.nombre_sede,
-    COUNT(p.id_pedido) AS total_pedidos,
-    IFNULL(SUM(p.total_con_iva), 0) AS total_ventas_con_iva
-FROM sedes s
-LEFT JOIN pedidos p ON p.id_sede = s.id_sede
-GROUP BY s.id_sede, s.nombre_sede
-ORDER BY total_ventas_con_iva DESC;
+- **Diagrama Entidad-Relación:** `docs/erd.svg` (ábrelo con doble
+  clic o arrastrándolo a un navegador; se ve igual de bien en GitHub,
+  que renderiza archivos `.svg` automáticamente).
+- **Normalización:** `docs/normalizacion.md` explica, tabla por
+  tabla, por qué el diseño cumple 1FN, 2FN y 3FN.
 
--- ============================================================
--- CONSULTAS SOBRE LAS VISTAS (ejemplos de uso)
--- ============================================================
+## Requerimientos y resultados
 
--- SELECT * FROM vista_resumen_pedidos_por_sede;
--- SELECT * FROM vista_productos_bajo_stock;
--- SELECT * FROM vista_clientes_activos ORDER BY total_comprado DESC;
+- Para ver el detalle de los requerimientos funcionales y no
+  funcionales, consulta `docs/requirements.md`.
+- Para ver **cómo** probar cada componente, consulta `results.md`.
+- Para ver los **resultados exactos ya calculados** (qué debería
+  mostrar cada consulta, con números reales), consulta
+  `evidences/evidencias.md`.

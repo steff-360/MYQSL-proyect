@@ -1,0 +1,166 @@
+<svg viewBox="0 0 1480 820" xmlns="http://www.w3.org/2000/svg" font-family="Consolas, Menlo, monospace">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1480" height="820" fill="#f8fafc"/>
+  <text x="20" y="28" font-size="20" font-weight="bold" fill="#0f172a">Diagrama ERD - distribuidora_valle</text>
+
+  <!-- ============ RELACIONES (dibujadas primero para que queden detrás de las cajas) ============ -->
+  <g stroke="#334155" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <!-- sedes -> usuarios -->
+    <line x1="260" y1="240" x2="260" y2="300"/>
+    <!-- sedes -> pedidos -->
+    <line x1="400" y1="240" x2="1080" y2="300"/>
+    <!-- usuarios -> pedidos -->
+    <line x1="480" y1="400" x2="1000" y2="400"/>
+    <!-- categorias -> productos -->
+    <line x1="740" y1="240" x2="740" y2="300"/>
+    <!-- clientes -> pedidos -->
+    <line x1="1220" y1="240" x2="1220" y2="300"/>
+    <!-- pedidos -> detalle_pedido -->
+    <line x1="1050" y1="500" x2="420" y2="560"/>
+    <!-- productos -> detalle_pedido -->
+    <line x1="620" y1="500" x2="380" y2="560"/>
+    <!-- productos -> auditoria_precios -->
+    <line x1="740" y1="500" x2="740" y2="560"/>
+    <!-- productos -> log_stock_bajo -->
+    <line x1="900" y1="500" x2="1050" y2="560"/>
+  </g>
+
+  <!-- Etiquetas de cardinalidad -->
+  <g font-size="13" fill="#475569">
+    <text x="266" y="270">1 : N</text>
+    <text x="700" y="265">1 : N</text>
+    <text x="700" y="380">1 : N</text>
+    <text x="746" y="270">1 : N</text>
+    <text x="1140" y="270">1 : N</text>
+    <text x="700" y="535">1 : N</text>
+    <text x="500" y="530">1 : N</text>
+    <text x="746" y="535">1 : N</text>
+    <text x="960" y="535">1 : N</text>
+  </g>
+
+  <!-- ============ ENTIDADES ============ -->
+  <!-- Plantilla de caja: rect + titulo + lineas de campos -->
+
+  <!-- sedes -->
+  <g>
+    <rect x="40" y="40" width="440" height="200" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" rx="6"/>
+    <rect x="40" y="40" width="440" height="34" fill="#0369a1" rx="6"/>
+    <rect x="40" y="58" width="440" height="16" fill="#0369a1"/>
+    <text x="260" y="63" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">sedes</text>
+    <text x="56" y="98" font-size="14" fill="#0f172a">PK  id_sede         INT</text>
+    <text x="56" y="120" font-size="14" fill="#0f172a">    nombre           VARCHAR(100)</text>
+    <text x="56" y="142" font-size="14" fill="#0f172a">    direccion        VARCHAR(200)</text>
+    <text x="56" y="164" font-size="14" fill="#0f172a">    telefono         VARCHAR(20)</text>
+    <text x="56" y="186" font-size="14" fill="#0f172a">    fecha_creacion   TIMESTAMP</text>
+  </g>
+
+  <!-- categorias -->
+  <g>
+    <rect x="520" y="40" width="440" height="200" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" rx="6"/>
+    <rect x="520" y="40" width="440" height="34" fill="#0369a1" rx="6"/>
+    <rect x="520" y="58" width="440" height="16" fill="#0369a1"/>
+    <text x="740" y="63" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">categorias</text>
+    <text x="536" y="98" font-size="14" fill="#0f172a">PK  id_categoria     INT</text>
+    <text x="536" y="120" font-size="14" fill="#0f172a">    nombre           VARCHAR(60) UNIQUE</text>
+  </g>
+
+  <!-- clientes -->
+  <g>
+    <rect x="1000" y="40" width="440" height="200" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" rx="6"/>
+    <rect x="1000" y="40" width="440" height="34" fill="#0369a1" rx="6"/>
+    <rect x="1000" y="58" width="440" height="16" fill="#0369a1"/>
+    <text x="1220" y="63" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">clientes</text>
+    <text x="1016" y="98" font-size="14" fill="#0f172a">PK  id_cliente       INT</text>
+    <text x="1016" y="120" font-size="14" fill="#0f172a">    nombre           VARCHAR(150)</text>
+    <text x="1016" y="142" font-size="14" fill="#0f172a">    telefono         VARCHAR(20)</text>
+    <text x="1016" y="164" font-size="14" fill="#0f172a">    email            VARCHAR(120)</text>
+    <text x="1016" y="186" font-size="14" fill="#0f172a">    direccion        VARCHAR(200)</text>
+  </g>
+
+  <!-- usuarios -->
+  <g>
+    <rect x="40" y="300" width="440" height="200" fill="#fef9c3" stroke="#a16207" stroke-width="2" rx="6"/>
+    <rect x="40" y="300" width="440" height="34" fill="#a16207" rx="6"/>
+    <rect x="40" y="318" width="440" height="16" fill="#a16207"/>
+    <text x="260" y="323" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">usuarios</text>
+    <text x="56" y="358" font-size="14" fill="#0f172a">PK  id_usuario       INT</text>
+    <text x="56" y="380" font-size="14" fill="#0f172a">    nombre           VARCHAR(100)</text>
+    <text x="56" y="402" font-size="14" fill="#0f172a">    usuario          VARCHAR(50) UNIQUE</text>
+    <text x="56" y="424" font-size="14" fill="#0f172a">    rol              ENUM</text>
+    <text x="56" y="446" font-size="14" fill="#0f172a">FK  id_sede          INT  -> sedes</text>
+    <text x="56" y="468" font-size="14" fill="#0f172a">    activo           BOOLEAN</text>
+  </g>
+
+  <!-- productos -->
+  <g>
+    <rect x="520" y="300" width="440" height="200" fill="#dcfce7" stroke="#15803d" stroke-width="2" rx="6"/>
+    <rect x="520" y="300" width="440" height="34" fill="#15803d" rx="6"/>
+    <rect x="520" y="318" width="440" height="16" fill="#15803d"/>
+    <text x="740" y="323" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">productos</text>
+    <text x="536" y="358" font-size="14" fill="#0f172a">PK  id_producto      INT</text>
+    <text x="536" y="380" font-size="14" fill="#0f172a">    nombre           VARCHAR(120)</text>
+    <text x="536" y="402" font-size="14" fill="#0f172a">FK  id_categoria     INT  -> categorias</text>
+    <text x="536" y="424" font-size="14" fill="#0f172a">    precio           DECIMAL(10,2)</text>
+    <text x="536" y="446" font-size="14" fill="#0f172a">    stock            INT</text>
+    <text x="536" y="468" font-size="14" fill="#0f172a">    stock_minimo     INT</text>
+  </g>
+
+  <!-- pedidos -->
+  <g>
+    <rect x="1000" y="300" width="440" height="200" fill="#fee2e2" stroke="#b91c1c" stroke-width="2" rx="6"/>
+    <rect x="1000" y="300" width="440" height="34" fill="#b91c1c" rx="6"/>
+    <rect x="1000" y="318" width="440" height="16" fill="#b91c1c"/>
+    <text x="1220" y="323" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">pedidos</text>
+    <text x="1016" y="358" font-size="14" fill="#0f172a">PK  id_pedido        INT</text>
+    <text x="1016" y="380" font-size="14" fill="#0f172a">FK  id_cliente       INT  -> clientes</text>
+    <text x="1016" y="402" font-size="14" fill="#0f172a">FK  id_sede          INT  -> sedes</text>
+    <text x="1016" y="424" font-size="14" fill="#0f172a">FK  id_usuario       INT  -> usuarios</text>
+    <text x="1016" y="446" font-size="14" fill="#0f172a">    estado           ENUM</text>
+    <text x="1016" y="468" font-size="14" fill="#0f172a">    total            DECIMAL(10,2)</text>
+  </g>
+
+  <!-- detalle_pedido -->
+  <g>
+    <rect x="40" y="560" width="440" height="220" fill="#ede9fe" stroke="#6d28d9" stroke-width="2" rx="6"/>
+    <rect x="40" y="560" width="440" height="34" fill="#6d28d9" rx="6"/>
+    <rect x="40" y="578" width="440" height="16" fill="#6d28d9"/>
+    <text x="260" y="583" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">detalle_pedido</text>
+    <text x="56" y="618" font-size="14" fill="#0f172a">PK  id_detalle        INT</text>
+    <text x="56" y="640" font-size="14" fill="#0f172a">FK  id_pedido         INT  -> pedidos</text>
+    <text x="56" y="662" font-size="14" fill="#0f172a">FK  id_producto       INT  -> productos</text>
+    <text x="56" y="684" font-size="14" fill="#0f172a">    cantidad          INT</text>
+    <text x="56" y="706" font-size="14" fill="#0f172a">    precio_unitario   DECIMAL(10,2)</text>
+    <text x="56" y="728" font-size="14" fill="#0f172a">    subtotal          GENERATED</text>
+  </g>
+
+  <!-- auditoria_precios -->
+  <g>
+    <rect x="520" y="560" width="440" height="200" fill="#fae8ff" stroke="#a21caf" stroke-width="2" rx="6"/>
+    <rect x="520" y="560" width="440" height="34" fill="#a21caf" rx="6"/>
+    <rect x="520" y="578" width="440" height="16" fill="#a21caf"/>
+    <text x="740" y="583" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">auditoria_precios</text>
+    <text x="536" y="618" font-size="14" fill="#0f172a">PK  id_auditoria       INT</text>
+    <text x="536" y="640" font-size="14" fill="#0f172a">FK  id_producto        INT  -> productos</text>
+    <text x="536" y="662" font-size="14" fill="#0f172a">    precio_anterior    DECIMAL(10,2)</text>
+    <text x="536" y="684" font-size="14" fill="#0f172a">    precio_nuevo       DECIMAL(10,2)</text>
+    <text x="536" y="706" font-size="14" fill="#0f172a">    fecha_cambio       TIMESTAMP</text>
+  </g>
+
+  <!-- log_stock_bajo -->
+  <g>
+    <rect x="1000" y="560" width="440" height="200" fill="#ffedd5" stroke="#c2410c" stroke-width="2" rx="6"/>
+    <rect x="1000" y="560" width="440" height="34" fill="#c2410c" rx="6"/>
+    <rect x="1000" y="578" width="440" height="16" fill="#c2410c"/>
+    <text x="1220" y="583" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">log_stock_bajo</text>
+    <text x="1016" y="618" font-size="14" fill="#0f172a">PK  id_log             INT</text>
+    <text x="1016" y="640" font-size="14" fill="#0f172a">FK  id_producto        INT  -> productos</text>
+    <text x="1016" y="662" font-size="14" fill="#0f172a">    stock_actual       INT</text>
+    <text x="1016" y="684" font-size="14" fill="#0f172a">    fecha_revision     TIMESTAMP</text>
+  </g>
+
+</svg>
