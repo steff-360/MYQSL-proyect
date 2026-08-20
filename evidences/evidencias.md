@@ -24,8 +24,8 @@ cantidades y precios de ese archivo).
 | 3 | Restaurante Sabor Chapin | Sede Villa Nueva | pendiente | **157.50** |
 
 Cálculo:
-- Pedido 1: 10 × 6.50 (gaseosa cola) + 20 × 4.00 (agua pura) = 65.00 + 80.00 = **145.00**
-- Pedido 2: 5 × 14.00 (gaseosa cola 2L) + 8 × 9.50 (jugo naranja) = 70.00 + 76.00 = **146.00**
+- Pedido 1: 10 × 6.50 (gaseosa coca cola) + 20 × 4.00 (agua pura) = 65.00 + 80.00 = **145.00**
+- Pedido 2: 5 × 14.00 (gaseosa coca cola 2L) + 8 × 9.50 (jugo naranja) = 70.00 + 76.00 = **146.00**
 - Pedido 3: 15 × 6.50 (gaseosa naranja) + 10 × 6.00 (agua mineral) = 97.50 + 60.00 = **157.50**
 
 ---
@@ -54,9 +54,9 @@ Con el stock inicial de `data.sql` (antes de vender nada a través de
 
 | producto | stock | stock_minimo | ¿bajo stock? |
 |---|---|---|---|
-| Gaseosa Cola 600ml | 120 | 20 | No |
+| Gaseosa Coca cola 600ml | 120 | 20 | No |
 | Gaseosa Naranja 600ml | 80 | 20 | No |
-| Gaseosa Cola 2L | 50 | 15 | No |
+| Gaseosa Coca cola 2L | 50 | 15 | No |
 | Agua Pura 600ml | 200 | 30 | No |
 | Agua Mineral 1L | 90 | 20 | No |
 | Jugo de Naranja 1L | 40 | 10 | No |
@@ -74,7 +74,7 @@ producto (por ejemplo, si descomentas y corres los ejemplos de
 | cliente | pedidos_completados | total_comprado | segmento |
 |---|---|---|---|
 | Tienda La Esquina | 1 | 145.00 | Ocasional |
-| Minimarket El Ahorro | 1 | 146.00 | Ocasional |
+| Tienda San Miguel | 1 | 146.00 | Ocasional |
 | Restaurante Sabor Chapin | 0 | 0.00 | Sin compras |
 | Cafetería Central | 0 | 0.00 | Sin compras |
 
