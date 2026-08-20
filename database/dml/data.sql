@@ -1,5 +1,5 @@
 -- =====================================================================
---  DATA.sql
+--  DATA.sql Stefani
 --  Datos de prueba (DML) para la Distribuidora de Gaseosas del Valle
 --
 --  IMPORTANTE: ejecuta primero database/ddl/schema.sql, porque estas

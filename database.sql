@@ -1,5 +1,5 @@
 -- ============================================================
--- Gaseosas del Valle S.A.
+-- Gaseosas del Valle S.A. Stefani
 -- Script: database.sql
 -- Descripción: Creación de la base de datos, tablas y relaciones
 -- ============================================================

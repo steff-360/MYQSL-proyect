@@ -1,5 +1,5 @@
 -- =====================================================================
---  TRANSACTIONS.sql
+--  TRANSACTIONS.sql Stefani
 --  Procedimiento almacenado transaccional para la Distribuidora
 --
 --  Una TRANSACCIÓN agrupa varios pasos como si fueran uno solo:

@@ -1,5 +1,5 @@
 -- =====================================================================
---  VIEWS_AND_QUERIES.sql
+--  VIEWS_AND_QUERIES.sql Stefani
 --  Vistas (DQL) para la Distribuidora de Gaseosas del Valle
 --
 --  Una VISTA es como una "consulta guardada": la creas una vez y

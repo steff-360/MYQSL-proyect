@@ -1,5 +1,5 @@
 -- =====================================================================
---  TRIGGERS.sql
+--  TRIGGERS.sql Stefani
 --  Triggers para la Distribuidora de Gaseosas del Valle
 --
 --  Un TRIGGER es un bloque de código que se ejecuta AUTOMÁTICAMENTE

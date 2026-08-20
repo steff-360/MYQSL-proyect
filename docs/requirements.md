@@ -1,4 +1,4 @@
-# Requerimientos del Proyecto
+# Requerimientos del Proyecto Stefani
 
 ## Distribuidora de Gaseosas del Valle S.A.
 

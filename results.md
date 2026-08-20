@@ -1,4 +1,4 @@
-# Resultados de Pruebas
+# Resultados de Pruebas Por Stefani
 
 Este archivo describe **cómo** probar cada componente del proyecto.
 Para ver los **resultados exactos ya calculados** (tablas, totales,

@@ -1,4 +1,4 @@
-# Normalización de Datos
+# Normalización de Datos Stefani
 
 Este documento explica por qué el diseño de `distribuidora_valle`
 cumple con la Primera, Segunda y Tercera Forma Normal (1FN, 2FN, 3FN).

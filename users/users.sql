@@ -1,5 +1,5 @@
 -- =====================================================================
---  USERS.sql
+--  USERS.sql Stefani
 --  Usuarios de MySQL (a nivel de servidor) para la Distribuidora
 --
 --  OJO: esto es distinto a la tabla "usuarios" que creamos en el

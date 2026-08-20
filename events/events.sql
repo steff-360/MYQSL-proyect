@@ -1,5 +1,5 @@
 -- =====================================================================
---  EVENTS.sql
+--  EVENTS.sql Stefani
 --  Eventos programados para la Distribuidora de Gaseosas del Valle
 --
 --  Un EVENTO es una tarea que MySQL ejecuta solo, en automático,

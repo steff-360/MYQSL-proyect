@@ -1,5 +1,5 @@
 -- =====================================================================
---  INDEXES.sql
+--  INDEXES.sql Stefani
 --  Índices para la Distribuidora de Gaseosas del Valle
 --
 --  Un ÍNDICE es como el índice de un libro: le ayuda a MySQL a

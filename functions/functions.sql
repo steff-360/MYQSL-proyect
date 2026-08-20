@@ -1,5 +1,5 @@
 -- =====================================================================
---  FUNCTIONS.sql
+--  FUNCTIONS.sql Stefani
 --  Funciones almacenadas para la Distribuidora de Gaseosas del Valle
 --
 --  Una FUNCIÓN en MySQL recibe parámetros, hace un cálculo y

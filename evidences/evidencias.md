@@ -1,4 +1,4 @@
-# Evidencias de Ejecución
+# Evidencias de Ejecución Stefani
 
 Estos son los resultados **exactos** que deberías obtener al ejecutar
 los scripts en el orden indicado en el `README.md`, calculados a mano

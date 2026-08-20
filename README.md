@@ -111,3 +111,5 @@ filtros por sede/cliente/estado, y llaves foráneas usadas en JOINs).
 - Para ver los **resultados exactos ya calculados** (qué debería
   mostrar cada consulta, con números reales), consulta
   `evidences/evidencias.md`.
+
+**Autora Stefani Sánchez**

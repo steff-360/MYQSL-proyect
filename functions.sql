@@ -79,7 +79,7 @@ END$$
 DELIMITER ;
 
 -- ============================================================
--- EJEMPLOS DE USO
+-- EJEMPLOS DE USO POR STEFANI
 -- ============================================================
 
 -- Ejemplo: calcular (sin persistir) el total con IVA de un pedido puntual
