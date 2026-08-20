@@ -11,7 +11,7 @@ USE distribuidora_valle;
 
 -- Cambiamos el delimitador porque el cuerpo de la función usa punto y
 -- coma (;) internamente, y no queremos que MySQL corte el bloque ahí.
-DELIMITER $$
+DELIMITER //
 
 -- ---------------------------------------------------------------------
 -- FUNCIÓN: fn_calcular_total_con_iva
@@ -28,7 +28,7 @@ BEGIN
     SET total_con_iva = monto * 1.12;
 
     RETURN total_con_iva;
-END $$
+END //
 
 
 -- ---------------------------------------------------------------------
@@ -54,7 +54,7 @@ BEGIN
     END IF;
 
     RETURN stock_disponible >= p_cantidad;
-END $$
+END //
 
 -- Regresamos el delimitador a su valor normal.
 DELIMITER ;
