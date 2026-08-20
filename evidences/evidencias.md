@@ -20,7 +20,7 @@ cantidades y precios de ese archivo).
 | id_pedido | cliente | sede | estado | total |
 |---|---|---|---|---|
 | 1 | Tienda La Esquina | Sede Central | completado | **145.00** |
-| 2 | Minimarket El Ahorro | Sede Mixco | completado | **146.00** |
+| 2 | Tienda San Miguel | Sede Mixco | completado | **146.00** |
 | 3 | Restaurante Sabor Chapin | Sede Villa Nueva | pendiente | **157.50** |
 
 Cálculo:
