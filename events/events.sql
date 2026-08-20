@@ -13,7 +13,7 @@ USE distribuidora_valle;
 -- Esta línea lo activa (necesario para que el evento se ejecute).
 SET GLOBAL event_scheduler = ON;
 
-DELIMITER $$
+DELIMITER //
 
 -- ---------------------------------------------------------------------
 -- EVENTO: evento_revisar_stock
@@ -31,7 +31,7 @@ BEGIN
     FROM productos
     WHERE stock <= stock_minimo
       AND activo = TRUE;
-END $$
+END //
 
 DELIMITER ;
 

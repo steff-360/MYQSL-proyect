@@ -1,5 +1,5 @@
 -- =====================================================================
---  SCHEMA.sql
+--  SCHEMA.sql ST
 --  Base de Datos: Distribuidora de Gaseosas del Valle S.A.
 --
 --  Este archivo crea la base de datos y todas sus tablas.

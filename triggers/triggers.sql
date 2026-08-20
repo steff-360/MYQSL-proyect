@@ -9,7 +9,7 @@
 
 USE distribuidora_valle;
 
-DELIMITER $$
+DELIMITER //
 
 -- ---------------------------------------------------------------------
 -- TRIGGER: tr_after_actualizar_stock
@@ -24,7 +24,7 @@ BEGIN
     UPDATE productos
     SET stock = stock - NEW.cantidad
     WHERE id_producto = NEW.id_producto;
-END $$
+END //
 
 
 -- ---------------------------------------------------------------------
@@ -42,7 +42,7 @@ BEGIN
         INSERT INTO auditoria_precios (id_producto, precio_anterior, precio_nuevo)
         VALUES (NEW.id_producto, OLD.precio, NEW.precio);
     END IF;
-END $$
+END //
 
 DELIMITER ;
 

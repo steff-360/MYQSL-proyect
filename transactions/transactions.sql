@@ -11,7 +11,7 @@
 
 USE distribuidora_valle;
 
-DELIMITER $$
+DELIMITER //
 
 -- ---------------------------------------------------------------------
 -- PROCEDIMIENTO: sp_comprar
@@ -78,7 +78,7 @@ BEGIN
         COMMIT;
         SET p_resultado = CONCAT('OK: compra registrada con el número de pedido ', v_id_pedido, '.');
     END IF;
-END $$
+END //
 
 DELIMITER ;
 
